@@ -2,7 +2,6 @@
 title: send
 ---
 ```cpp
-void send(SimTime_t delay, TimeConverter* tc, Event* event); // Deprecated in SST 15.0
 void send(SimTime_t delay, TimeConverter tc, Event* event);
 void send(SimTime_t delay, Event* event);
 void send(Event* event);

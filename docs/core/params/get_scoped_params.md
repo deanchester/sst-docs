@@ -7,7 +7,7 @@ Params get_scoped_params(const std::string& scope) const;
 
 Copy parameters with the scope prefix into a new Params object and return the new object. SST uses a naming convention where a scope is a series of names separated by '.'. In particular, any parameter key prefixed by "scope." will be in the returned Params object. The returned params will have the scope stripped from their key strings. Scoping is commonly used when a parent object handles parameters for child SubComponents, modules, etc. Scoping parameters allows the parent to easily identify which object should receive the given parameters.
 
-Both local and global params will be searched but all matching params will be copied into the local space of the new Params object.
+Both local and shared params will be searched but all matching params will be copied into the local space of the new Params object.
 
 ## Parameters
 * **scope** (std::string) The scope to search for. A '.' will be appended to the scope for the search.

@@ -4,18 +4,17 @@ title: getCurrentSimTime
 
 ```cpp
 SimTime_t getCurrentSimTime() const;
-SimTime_t getCurrentSimTime(TimeConverter* tc) const; // Deprecated in SST 15.0
-SimTime_t getCurrentSimTime(TimeConverter tc) const;
+SimTime_t getCurrentSimTime(TimeConverter base) const;
 SimTime_t getCurrentSimTime(const std::string& base) const;
+SimTime_t getCurrentSimTime(const char* base) const;
 ```
 *Availability:* Component, SubComponent, ComponentExtension
 
-Returns the current simulation time as a cycle count. If a clock frequency is provided as either a TimeConverter or string, returns the cycle count in those units. Otherwise this function returns the cycle count in terms of the (sub)component's default time base.
+Returns the current simulation time as a cycle count. If a clock frequency is provided as either a TimeConverter or string, returns the cycle count in those units. Otherwise this function returns the cycle count in terms of the (sub)component's default timebase.
 
 ## Parameters
-* **tc** (TimeConverter) A time converter representing a clock cycle
-* **base** (string) A string of either a clock period (e.g., "1ns") or frequency (e.g., "200MHz"). Units are required and SI units are fine.
-* **returns** (SimTime_t) Current simulation time as a cycle count in terms of either the clock frequency provided to the function, or if none is provided, the (sub)component's default time base
+* **base** (TimeConverter, string, char*) The frequency or period of a clock to use when returning the number of cycles the simulation has been running. If a string or char*, units are required and can be SI units. For example "1ns", "200MHz", "3s", etc.
+* **returns** (SimTime_t) Current simulation time as a cycle count in terms of either the clock frequency provided to the function, or if none is provided, the (sub)component's default timebase
 
 
 ## Example

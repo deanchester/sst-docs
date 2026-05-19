@@ -10,7 +10,7 @@ The *memHierarchy* library is a collection of cache, scratchpad, directory, and 
 **SST Name:** `memHierarchy` &nbsp;  
 **Maturity Level:** Mature (3) &nbsp;  
 **Development Path:** Active &nbsp;   
-**Last Released:** SST 15.1
+**Last Released:** SST 16.0
 
 :::
 
@@ -21,9 +21,9 @@ The *memHierarchy* library is a collection of cache, scratchpad, directory, and 
 MemHierarchy memories can optionally use any of the following simulators in place of the included timing models for main memory, scratchpad, and other components that load a backend timing model. SST-Elements must be compiled with the appropriate `--with-<SIMULATOR>=/path/to/sim` flag for the integration to be enabled. See the SST [dependency build instructions](http://sst-simulator.org/SSTPages/SSTBuildAndInstall_15dot0dot0_SeriesAdditionalExternalComponents/) for details.
 
 * [CramSim](../cramsim/intro); included with sst-elements
-* [HMCSim](https://github.com/tactcomplabs/gc64-hmcsim); [Download](https://github.com/tactcomplabs/gc64-hmcsim/archive/sst-8.0.0-release.zip)
+* [HMCSim](https://github.com/tactcomplabs/gc64-hmcsim); [Download](https://github.com/tactcomplabs/gc64-hmcsim/archive/sst-8.0.0-release.zip) *Deprecated as of SST 16.0*
 * [messier](../messier/intro); included with sst-elements
-* [Ramulator](https://github.com/CMU-SAFARI/ramulator/); [Download](https://github.com/CMU-SAFARI/ramulator/archive/master.zip)
+* [Ramulator](https://github.com/CMU-SAFARI/ramulator/); [Download](https://github.com/CMU-SAFARI/ramulator/archive/master.zip) *Deprecated as of SST 16.0.*
 * [Ramulator2](https://github.com/CMU-SAFARI/ramulator2/); Ramulator2 does not have releases; SST tests against commit `a26ee92f` **New in SST 15.0**
 
 The following dependencies are no longer supported as of SST 15.0:

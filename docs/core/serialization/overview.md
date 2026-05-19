@@ -61,7 +61,7 @@ Many classes can be made serializable by adding a `serialize_order` function. Th
 * All standard library containers (`std::vector`, `std::map`, `std::array`, etc.)
 * Several standard library types: `std::atomic`, `std::pair`, `std::tuple`, `std::unique_ptr`
 * SST types: `Link`, `TimeConverter`, `Output`, `RNG:Random`, `RNG:RandomDistribution`, `SharedArray`, `SharedMap`, `SharedSet`, `UnitAlgebra`, `Statistic`, `StatisticOutput`
-* SST Handlers: `Clock::Handler2`, `Event::Handler2`
+* SST Handlers: `Clock::Handler`, `Event::Handler`, `Clock::Handler2` (deprecated), `Event::Handler2` (deprecated)
 * SST Interfaces: `SimpleNetwork`, `StandardMem`
 * Any object type for which you have implemented serialization
 

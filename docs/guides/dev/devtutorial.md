@@ -481,7 +481,7 @@ Eventually, to use these components in simulation, we will create an input confi
 
 ```cpp title="sender.cc" showLineNumbers
 Sender::Sender(SST::ComponentId_t id, SST::Params& UNUSED(params)) : SST::Component(id) { 
-    link = configureLink("send_port", new SST::Event::Handler2<Sender, &Sender::handle>(this));
+    link = configureLink("send_port", new SST::Event::Handler<Sender, &Sender::handle>(this));
     sst_assert( link != nullptr, CALL_INFO, -1, "Error: 'send_port' is not connected to a link\n");
 }
 ```
@@ -490,7 +490,7 @@ Sender::Sender(SST::ComponentId_t id, SST::Params& UNUSED(params)) : SST::Compon
 
 ```cpp title="responder.cc" showLineNumbers
 Responder::Responder(SST::ComponentId_t id, SST::Params& UNUSED(params)) : SST::Component(id) { 
-    link = configureLink("response_port", new SST::Event::Handler2<Responder, &Responder::handle>(this));
+    link = configureLink("response_port", new SST::Event::Handler<Responder, &Responder::handle>(this));
     sst_assert( link != nullptr, CALL_INFO, -1, "Error: 'response_port' is not connected to a link\n");
 }
 ```
@@ -575,7 +575,7 @@ The Sender needs to let SST know that it is responsible for detecting the end of
 
 ```cpp title="sender.cc" showLineNumbers
 Sender::Sender(SST::ComponentId_t id, SST::Params& UNUSED(params)) : SST::Component(id) { 
-    link = configureLink("send_port", new Event::Handler2<Sender, &Sender::handle>(this));
+    link = configureLink("send_port", new Event::Handler<Sender, &Sender::handle>(this));
     sst_assert( link != nullptr, CALL_INFO, -1, "Error: 'send_port' is not connected to a link\n");
 
     //highlight-start
@@ -586,7 +586,7 @@ Sender::Sender(SST::ComponentId_t id, SST::Params& UNUSED(params)) : SST::Compon
 ```
 </div>
 
-[`registerAsPrimaryComponent()`](../../core/component/component/registerAsPrimaryComponent.md) and [`primaryComponentDoNotEndSim()`](../../core/component/component/primaryComponentDoNotEndSim.md) may be called by multiple components. Simulation will finish when *all* primary components indicate that it is OK to exit.
+[`registerAsPrimaryComponent()`](../../core/component/control/registerAsPrimaryComponent.md) and [`primaryComponentDoNotEndSim()`](../../core/component/control/primaryComponentDoNotEndSim.md) may be called by multiple components. Simulation will finish when *all* primary components indicate that it is OK to exit.
 
 Finally, when Sender receives the pong event, let SST know that simulation is done. Modify its event handler as shown.
 

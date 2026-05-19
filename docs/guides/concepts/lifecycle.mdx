@@ -2,7 +2,7 @@
 title: Simulation lifecycle
 ---
 
-Each SST simulation goes through a number of stages, from start-up to exit. These stages are referred to as the *SST Lifecycle*. Component trees (i.e., a component together with its subcomponents and/or component extensions) are able to perform different actions in each stage through the Component APIs. These are the stages.
+Each SST simulation goes through a number of stages, from start-up to exit. These stages are referred to as the *SST Lifecycle*. Component trees (i.e., a component together with its subcomponents and/or component extensions) are able to perform different actions in each stage through the Component APIs. These are the stages as viewed by elements in the simulation.
 
 ### Lifecycle Stages
 
@@ -10,7 +10,7 @@ import lifecycleImg from '../assets/lifecycle.png';
 
 <img src={lifecycleImg} alt="A picture of the simulation lifecycle - creation, init, setup, run, complete, finish, cleanup" style={{maxWidth: "600px"}} />
 
-Init and Complete are multi-phase stages. They continue until component trees collectively stop exchanging events. Likewise, the Run stage continues until all [primary components](../../core/component/component/registerAsPrimaryComponent.md) have signaled they are done or until SST runs out of events to execute. 
+Init and Complete are multi-phase stages. They continue until component trees collectively stop exchanging events. Likewise, the Run stage continues until all [primary components](../../core/component/control/registerAsPrimaryComponent.md) have signaled they are done or until SST runs out of events to execute. 
 
 Note that with the exception of Cleanup and Run, these stages involve component objects only. If a subcomponent or component extension needs to perform work in a stage, their parent component needs to call the relevant API function on that element. This allows components to control the execution order among their children. 
 
@@ -23,16 +23,21 @@ Under normal circumstances, SST simulations proceed through each of these stages
 
 ## The stages in detail
 
-### Construction
+### Build (Creation)
 **API:** Constructors such as the [Component constructor](../../core/component/component/constructor.md) and element loading functions such as [`loadUserSubComponent`](../../core/component/load/loadUserSubComponent.md)
 
-When SST starts, it first reads in the simulation configuration file. This file defines the graph of components that SST will simulate. After parsing the graph to identify its structure, SST partitions the graph and sends each partition to a rank and/or thread in the simulation. The partitioning step is skipped in serial simulations. Each parallel partition then builds its own portion of the graph, invoking component constructors which in turn load any other elements the component needs (e.g., subcomponents). For very large simulations where the graph is difficult to parse on a single rank, SST does support pre-partitioning the graph and providing each rank/thread its own configuration input file ("parallel loading").
+The build stage largely takes place in the SST-Core. SST first reads the simulation input file; this may be python, json, a checkpoint manifest, or any other input type that SST recognizes. The file defines a graph of components that SST will simulate. SST performs the following actions on the graph:
+* *Generation* SST processes the input file, generating a temporary *ConfigGraph*. This object represents the graph structure and contains information needed to construct simulation elements (e.g., parameters).
+* *Partitioning* The ConfigGraph is partitioned for ranks and/or threads.  This step is skipped for serial simulations and pre-partitioned ("parallel loaded") configurations.
+* *Distribution* The ConfigGraph is distributed to each rank in the system. This step is skipped for serial simulations or pre-partitioned ("parallel loaded") configurations.
+
+Each parallel partition then builds its own portion of the graph, invoking component constructors which in turn load any other elements the component needs (such as subcomponents). 
 The following activities should be completed during this stage.
 * [Link configuration](../../core/component/link/configureLink.md)
 * [Statistics must be registered](../../core/component/stat/registerStatistic.md)
-* Any SharedObjects must be initialized
+* Any [SharedObjects](../../core/sharedobj/overview.md) must be initialized
 * [User subcomponents should be loaded](../../core/component/load/loadUserSubComponent.md)
-* Parameter objects passed to element constructors are deleted after the constructor returns. Elements should save any information they may need from the parameter object before their constructor ends.
+* [Parameter](../../core/params/class.md) objects passed to element constructors are deleted after the constructor returns. Elements should save any information they may need from the parameter object before their constructor ends.
 
 ### Init
 **API:** [`init()`](../../core/component/lifecycle/init.md)
@@ -48,6 +53,7 @@ At the end of the init stage:
 * Writes to SharedObjects must be complete. SharedObjects are read-only once setup begins.
 
 *Example:* The merlin network routers use init to exchange bandwidth parameters and resolve any disagreements.
+
 *Example:* The memHierarchy components use init to discover the memory system topology and generate memory address based routing tables.
 
 ### Setup
@@ -60,9 +66,9 @@ During this stage:
 * Simulations without clocks *must* send at least one event.
 
 ### Run
-**API:*** [Clock handlers](../../core/clock/clock_handler.md) and [event handlers](../../core/events/event_handler.md)
+**API:** [Clock handlers](../../core/clock/clock_handler.md) and [event handlers](../../core/events/event_handler.md)
 
-The run stage is the actual simulation. In this stage, SST processes events, triggering event and/or clock handlers to progress the simulation. The run stage ends when (1) all primary components declare the simulation is done using [`primaryComponentOKToEndSim()`](../../core/component/component/primaryComponentOKToEndSim.md), (2) there are no further events to process, (3) the simulated or wall-clock time specified by SST options (stop-at, exit-after) is reached, or (4) an abnormal exit condition occurs (e.g., a `SIGTERM` signal or call to [`output.fatal()`](../../core/output/fatal.md)). In case (2), the simulation will report a simulated time of `MAX_SIMTIME_T`, or the maximum time the simulation can reach per the simulation time base, though statistics will be correct. It is generally better for models to use methods (1) or (3) to  end simulation.
+The run stage is the actual simulation. In this stage, SST processes events, triggering event and/or clock handlers to progress the simulation. The run stage ends when (1) all primary components declare the simulation is done using [`primaryComponentOKToEndSim()`](../../core/component/control/primaryComponentOKToEndSim.md), (2) there are no further events to process, (3) the simulated or wall-clock time specified by SST options (stop-at, exit-after) is reached, or (4) an abnormal exit condition occurs (e.g., a `SIGTERM` signal or call to [`output.fatal()`](../../core/output/fatal.md)). In case (2), the simulation will report a simulated time of `MAX_SIMTIME_T`, or the maximum time the simulation can reach per the simulation time base, though statistics will be correct. It is generally better for models to use methods (1) or (3) to  end simulation.
 
 In the run stage:
 * Event handlers cannot be changed.
@@ -91,6 +97,7 @@ During the cleanup stage, SST first generates a final statistic output if statis
 * Event::Handler
 * Link
 * Module
+* PortModule
 * ProfileTool
 * Statistic
 * SharedObject

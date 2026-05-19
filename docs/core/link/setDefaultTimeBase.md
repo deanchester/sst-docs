@@ -3,7 +3,6 @@ title: setDefaultTimeBase
 ---
 
 ```cpp
-void setDefaultTimeBase(TimeConverter* tc); // Deprecated in SST 15.0
 void setDefaultTimeBase(TimeConverter tc);
 ```
 

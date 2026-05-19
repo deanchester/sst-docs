@@ -7,31 +7,57 @@ SST defines a number of types that developers may encounter throughout the codeb
 
 ## Identifiers
 These types are used to uniquely tag SST objects.
-* **ComponentId_t** (uint64_t)
 
-    A unique identifier assigned to each component and subcomponent in the simulation. SubComponent IDs share lower-order bits with their parent Component ID. 
-* **StatisticId_t** (uint64_t)
+### ComponentId_t
+`uint64_t`
 
-    An identifier assigned to each statistic in the simulation
+A unique identifier assigned to each component and subcomponent in the simulation. SubComponent IDs share lower-order bits with their parent Component ID. Related definitions are:
+* **UNSET_COMPONENT_ID** A ComponentId_t set to `UNSET_COMPONENT_ID` indicates an uninitialized ID
+* **COMPONENT_ID_BITS** Number of bits belonging to the Component (vs a SubComponent) ID
+* **COMPONENT_ID_MASK(x)** Returns the Component portion of a ComponentId_t `x`
+* **SUBCOMPONENT_ID_BITS** Number of bits belonging to the SubComponent (vs a Component) ID
+* **SUBCOMPONENT_ID_MASK(x)** Returns the SubComponent portion of a ComponentId_t `x`
 
-* **LinkId_t** (uint32_t)
+### StatisticId_t
+`uint64_t`
 
-    A unique identifier assigned to each link in the simulation
-* **HandlerId_t** (uint64_t)
+An identifier assigned to explicitly-enabled statistics in the simulation. Statistics enabled by enabling all statistics in the simulation, component, etc. may have an ID set to `STATALL_ID`. Uninitialized IDs are initialized to `UNSET_STATISTIC_ID`.
 
-    A unique identifier assigned to handler functions (clock, link, etc.)
+### LinkId_t
+`uint32_t`
+
+A unique identifier assigned to each link in the simulation.
+
+### HandlerId_t
+`uint64_t` 
+
+A unique identifier assigned to handler functions (clock, link, etc.).
+
+### PortModuleId_t 
+`std::pair<std::string,size_t>`
+
+Uniquely identifies a PortModule attached to a particular Component. The `string` names the port that the module is attached to.
 
 ## Time
 Several time types are used through SST.
-* **Cycle_t** (uint64_t)
 
-    A count of clock cycles
-* **SimTime_t** (uint64_t)
+### Cycle_t
+`uint64_t`
 
-    Time counted in the simulation's base time quanta. By default this is picoseconds (ps).
-* **Time_t** (double)
+A count of clock cycles. 
 
-    Time in seconds
+### SimTime_t
+`uint64_t`
+
+Time counted in the simulation's base time quanta. By default this is picoseconds (ps). A macro, `PRI_SIMTIME`, is also provided for print formatting.
+
+### Time_t
+`double`
+
+Time measured in seconds.
+
+### Defined times
+THe following time-related defines
 
 ## Units
 Typedefs are included for the following units.

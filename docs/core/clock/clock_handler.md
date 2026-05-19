@@ -17,11 +17,12 @@ Clock handlers must follow the function definitions above. When the SSTCore invo
 ## Constructing Handlers
 A clock handler belonging to class `class` and pointing to function `func` is constructed as follows. The second line demonstrates a handler with metadata of type `dataT` and a value of `data`.
 ```cpp
-SST::Handler* handler = new Clock::Handler2<class, &class::func>(this);
-SST::Handler* handler = new Clock::Handler2<class, &class::func, dataT>(this, data);
+SST::Handler* handler = new Clock::Handler<class, &class::func>(this);
+SST::Handler* handler = new Clock::Handler<class, &class::func, dataT>(this, data);
 ```
 
-This definition has changed as of SST 14.0 due to the reintroduction of checkpointing support. The old style handler was named `Handler` instead of `Handler2` and passed the handler function pointer to the constructor as a function parameter rather than a template parameter. The `Handler` type is not checkpointable. `Handler` is deprecated in SST 14.0 and the name will be reintroduced in SST 16.0 with the same syntax as `Handler2`.
+:::info
+This definition was changed as of SST 14.0 due to the reintroduction of checkpointing support. In SST 16.0, the old style handler is no longer available and the temporary name `Handler` that was introduced in SST 14.0 is an alias for the above new style Handler. The name `Handler2` is now deprecated, completing the transition.
 
 ```cpp title="Handler construction in different versions of SST"
 /* Pre-SST 14.0 handler - not checkpointable */
@@ -30,12 +31,21 @@ SST::Handler* handler = new Clock::Handler<class, metaT>(this, &class::func, dat
 
 /* SST 14.x and 15.x - old and new style supported */
 // Old style, deprecated and not checkpointable - update to Handler2 style instead
-HandlerBase* handler = new Clock::Handler<class>(this, &class::func);
-HandlerBase* handler = new Clock::Handler<class, dataT>(this, &class::func, data);
+SST::Handler* handler = new Clock::Handler<class>(this, &class::func);
+SST::Handler* handler = new Clock::Handler<class, dataT>(this, &class::func, data);
 // New style, checkpointable
-HandlerBase* handler = new Clock::Handler2<class, &class::func>(this);
-HandlerBase* handler = new Clock::Handler2<class, &class::func, dataT>(this, data);
+SST::Handler* handler = new Clock::Handler2<class, &class::func>(this);
+SST::Handler* handler = new Clock::Handler2<class, &class::func, dataT>(this, data);
+
+/* SST 16.0 and beyond - only new checkpointable style supported */
+SST::Handler* handler = new Clock::Handler<class, &class::func>(this);
+SST::Handler* handler = new Clock::Handler<class, &class::func, dataT>(this, data);
+// The Handler2 name is deprecated, use Handler instead
+SST::Handler* handler = new Clock::Handler2<class, &class::func>(this);
+SST::Handler* handler = new Clock::Handler2<class, &class::func, dataT>(this, data);
 ```
+
+:::
 
 ## Example
 <!--- SOURCE_CODE: sst-elements/src/sst/elements/simpleElementExample/basicClocks.h --->
@@ -64,16 +74,16 @@ basicClocks::basicClocks(ComponentId_t id, Params& params) : Component(id)
     /* Code to read parameters for the clock frequencies clock0Freq, clock1Freq, clock2Freq */
 
     // Register a clock at clock0Freq to call back the 'mainTick' function
-    registerClock(clock0Freq, new Clock::Handler2<basicClocks, &basicClocks::mainTick>(this));
+    registerClock(clock0Freq, new Clock::Handler<basicClocks, &basicClocks::mainTick>(this));
 
     // Register a clock at clock1Freq to call back the 'otherTick' function. 
     // THe handler also has a uint32_t (our arbitrary data) and this handler will pass a '1' in that field
     clock1converter = registerClock(clock1Freq,
-        new Clock::Handler2<basicClocks, &basicClocks::otherTick, uint32_t>(this, 1));
+        new Clock::Handler<basicClocks, &basicClocks::otherTick, uint32_t>(this, 1));
 
     // Register a clock at clock2Freq to also call back the 'otherTick' function. This will pass a '2' to the 
     // handler so we can differentiate when clock1 calls the handler vs. clock2
-    Clock::HandlerBase* handler = new Clock::Handler2<basicClocks, &basicClocks::otherTick, uint32_t>(this, 2);
+    Clock::HandlerBase* handler = new Clock::Handler<basicClocks, &basicClocks::otherTick, uint32_t>(this, 2);
     clock2converter = registerClock(clock2Freq, handler);
 
     // How many cycles we'll run the simulation

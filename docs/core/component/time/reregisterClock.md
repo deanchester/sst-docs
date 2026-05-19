@@ -3,7 +3,6 @@ title: reregisterClock
 ---
 
 ```cpp
-Cycle_t reregisterClock(TimeConverter* freq, Clock::HandlerBase* handler); // Deprecated in SST 15.0
 Cycle_t reregisterClock(TimeConverter freq, Clock::HandlerBase* handler);
 ```
 *Availability:* Component, SubComponent, ComponentExtension
@@ -32,7 +31,7 @@ public:
     Sender(ComponentId_t id, Params& params) : Component(id)
     {
         clockOn = true;
-        clockHandler = new Clock::Handler2<Sender, &Sender::handleClock>(this);
+        clockHandler = new Clock::Handler<Sender, &Sender::handleClock>(this);
         clockTimeConverter = registerClock("1GHz", clockHandler);
 
         /** Other configuration here */
@@ -58,7 +57,7 @@ public:
     }
 private:
     bool clockOn;
-    TimeConverter* clockTimeConverter;
+    TimeConverter clockTimeConverter;
     Clock::HandlerBase* clockHandler;
     /* Other class members here */
 };

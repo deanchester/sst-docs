@@ -10,7 +10,7 @@ title: shogun
 **SST Name:** `shogun` &nbsp;  
 **Maturity Level:** Prototype (2) &nbsp;  
 **Development Path:** Active &nbsp;   
-**Last Released:** SST 15.1
+**Last Released:** SST 16.0
 
 :::
 

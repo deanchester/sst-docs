@@ -57,7 +57,7 @@ There are three steps to contributing:
 1. Pass CI testing
 
 ### Create a pull request
-Ensure that commits contain only new changes (not merge commits of devel/master branches into your feature branch) by following the cloning instructions above. Pull request must target the *devel* branch of the repo if there is one. If no *devel* branch, target the *master* or *main* branch instead.
+Ensure that commits contain only new changes (not merge commits of devel/master branches into your feature branch) by following the cloning instructions above. Run the `pre-commit` hooks on the branch prior to opening a request to ensure it meets formatting requirements. Pull request must target the *devel* branch of the repo if there is one. If no *devel* branch, target the *master* or *main* branch instead.
 
 ### Receive a technical review
 All SST community developers are encouraged to review and discuss PRs. Additionally, the PR must receive at least one approving technical review from an SST team member prior to testing. Any suggested changes, questions, etc. need to be resolved prior to merging the PR though the PR may be released for testing earlier.

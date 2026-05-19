@@ -4,7 +4,6 @@ title: addSendLatency
 
 ```cpp
 void addSendLatency(int cycles, const std::string& timebase);
-void addSendLatency(SimTime_t cycles, TimeConverter* timebase); // Deprecated in SST 15.0
 void addSendLatency(SimTime_t cycles, TimeConverter timebase);
 ```
 
@@ -20,7 +19,7 @@ Set additional latency to be added to all events that are sent out on this link.
 
 ```cpp
 // Configure a link connected to a port named 'port' 
-SST::Link* link = configureLink("port", new Event::Handler2<example,&example::handleEvent>(this));
+SST::Link* link = configureLink("port", new Event::Handler<example,&example::handleEvent>(this));
 
 // Add 20ns of latency
 link->addSendLatency(1, "20ns");

@@ -3,7 +3,6 @@ title: getNextClockCycle
 ---
 
 ```cpp
-Cycle_t getNextClockCycle(TimeConverter* freq); // Deprecated in SST 15.0
 Cycle_t getNextClockCycle(TimeConverter freq);
 ```
 *Availability:* Component, SubComponent, ComponentExtension

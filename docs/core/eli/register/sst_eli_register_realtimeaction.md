@@ -8,7 +8,7 @@ SST_ELI_REGISTER_REALTIMEACTION(class_name, "library", "name",
     SST_ELI_ELEMENT_VERSION(major, minorX, minorY), "description")
 ```
 
-RealTimeActions must register themselves with SST using this macro. The library and name strings provided in this macro will be used by SST to identify the action as "library.name". The version and description fields document the purpose and version of the action. 
+RealTimeActions must register themselves with SST using this macro. The library and name strings provided in this macro will be used by SST to identify the action as "library.name". The version and description fields document the version and purpose of the action. 
 
 :::info Important
 This macro must reside in a `public` section of the RealTimeAction's header file.
@@ -41,10 +41,10 @@ class ExampleRealTimeAction : public SST::RealTimeAction
 
     // ELI macro to register action with SST-Core
     SST_ELI_REGISTER_REALTIMEACTION(
-        ExampleRealTimeAction,                  // Class
-        "examples",                             // Library name
-        "helloExample",                         // Element name
-        SST_ELI_ELEMENT_VERSION(0, 1, 0),       // Version
+        ExampleRealTimeAction,                  // RealTimeAction class
+        "examples",                             // Library name, the 'lib' in SST's lib.name format
+        "helloExample",                         // Name used to refer to this action, the 'name' in SST's lib.name format
+        SST_ELI_ELEMENT_VERSION(0, 1, 0),       // A version number
         "Prints hello in response to a signal") // Description
 
     ExampleRealTimeAction(); // Constructor

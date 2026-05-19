@@ -3,7 +3,7 @@ title: getSimulationOutput
 ---
 
 ```cpp
-Output& getSimulationOutput() const;
+static Output& getSimulationOutput();
 ```
 *Availability:* Component, SubComponent, ComponentExtension
 

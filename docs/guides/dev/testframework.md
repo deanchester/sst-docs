@@ -234,3 +234,17 @@ The test framework provides a special skip function that can be used to check th
 def test_that_uses_ramulator(self):
     ...
 ```
+
+### PullRequest, Nightly and Weekly testing
+SST divides tests into categories based on how often they are run. These categories are:
+* **pr** (default) Runs on every pull request and in nightly integration tests
+* **nightly** Runs only in nightly integration tests
+* **weekly** Runs only in weekly integration tests.
+
+Generally, all tests are placed in the 'pr' category unless they are long running or otherwise expensive to run. To place a test in a category, use the `@categorize` decorator as shown below. Tests without a category decorator are automatically assigned to the 'pr' category.
+
+```py
+@categorize("nightly")
+def test_that_is_expensive_to_run(self):
+    ...
+```

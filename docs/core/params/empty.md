@@ -5,7 +5,7 @@ title: empty
 bool empty() const;
 ```
 
-Return True if the Params object is empty (has no local or global parameters).
+Return True if the Params object is empty (has no local or shared parameters).
 
 ## Parameters
 * **returns** none

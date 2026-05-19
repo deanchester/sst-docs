@@ -6,7 +6,7 @@ title: size
 size_t size() const;
 ```
 
-Returns the size (count) of parameters in the Params object. This includes both local and global param sets.
+Returns the size (count) of parameters in the Params object. This includes both local and shared param sets.
 
 ## Parameters
 * **returns** (size_t) The number of key/value parameter pairs that belong to the Params object

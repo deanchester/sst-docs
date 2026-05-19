@@ -31,7 +31,7 @@ public:
 
     /* Rest of ELI macros */
 
-    StandardInterface(ComponentId_t cid, Params &params, TimeConverter* time, HandlerBase* handler = NULL);
+    StandardInterface(ComponentId_t cid, Params &params, TimeConverter time, HandlerBase* handler = NULL);
 
     ~StandardInterface();
 
@@ -42,7 +42,7 @@ public:
 #include <sst_config.h>
 #include "standardInterface.h"
 
-StandardInterface::StandardInterface(ComponentId_t cid, Params &params, TimeConverter* time, HandlerBase* handler) :
+StandardInterface::StandardInterface(ComponentId_t cid, Params &params, TimeConverter time, HandlerBase* handler) :
     StandardMem(id, params, time, handler)
     {
         setDefaultTimeBase(time); // Links are required to have a timebase

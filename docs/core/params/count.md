@@ -5,7 +5,7 @@ title: count
 size_t count(const std::string& key) const;
 ```
 
-Finds the number of elements with a given key. Because duplicate keys are not allowed, this function returns at most one. Note this is the case even if a key exists in both the local and global params.
+Finds the number of elements with a given key. Because duplicate keys are not allowed, this function returns at most one. Note this is the case even if a key exists in both the local and shared params.
 
 ## Parameters
 * **key** (std::string) The key to search for

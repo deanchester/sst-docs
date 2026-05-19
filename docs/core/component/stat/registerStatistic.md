@@ -4,17 +4,17 @@ title: registerStatistic
 
 ```cpp
 template <typename T>
-Statistics::Statistic<T>* registerStatistic(const char* statName, const char* statSubId = "");
-Statistics::Statistic<T>* registerStatistic(const std::string& statName, const std::string& statSubId = "");
-Statistics::Statistic<T>* registerStatistic(Params& params, const std::string& statName, const std::string& statSubId = "");
+Statistics::Statistic<T>* registerStatistic(const char* statistic_name, const char* statistic_sub_id = "");
+Statistics::Statistic<T>* registerStatistic(const std::string& statistic_name, const std::string& statistic_sub_id = "");
+Statistics::Statistic<T>* registerStatistic(Params& params, const std::string& statistic_name, const std::string& statSubId = "");
 ```
 *Availability:* Component, SubComponent, ComponentExtension
 
 Register a statistic with the statistics engine. The returned statistic handle can then be used to add data to the statistic. If the same statistic is registered more than once, subsequent calls return the original handle. Statistics can also optionally be tagged with a "subId". This allows multiple copies of the same statistic, for example, a component may have multiple ports and want to track the number of bits sent on each one via a statistic. The statistic output will display each copy of the statistic with the given subId.
 
 ## Parameters
-* **statName** (string) Name of the statistic
-* **statSubId** (string) An optional identifier for the statistic if multiple copies of the same statistic will be tracked separately
+* **statistic_name** (string) Name of the statistic
+* **statistic_sub_id** (string) An optional identifier for the statistic if multiple copies of the same statistic will be tracked separately
 * **params** (Params) Parameters for the statistic if the statistic type requires it.
 * **returns** (bool) A handle to the statistic
 

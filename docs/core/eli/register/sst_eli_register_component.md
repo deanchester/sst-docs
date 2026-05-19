@@ -45,9 +45,9 @@ public:
 
     SST_ELI_REGISTER_COMPONENT(
         example1,                           // Component class
-        "simpleElementExample",             // Component library (for Python/library lookup)
-        "example1",                         // Component name (for Python/library lookup)
-        SST_ELI_ELEMENT_VERSION(1,0,0),     // Version of the component (not related to SST version)
+        "simpleElementExample",             // Library name, the 'lib' in SST's lib.name format
+        "example1",                         // Name used to refer to this component, the 'name' in SST's lib.name format
+        SST_ELI_ELEMENT_VERSION(1,0,0),     // A version number
         "Example #2, statistics & RNG",     // Description
         COMPONENT_CATEGORY_UNCATEGORIZED    // Category
     )

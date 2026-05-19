@@ -9,7 +9,7 @@ SST_ELI_REGISTER_PROFILETOOL(class_name, profile_api, "library", "name",
 ```
 
 This macro is used to register a profiling tool with SST. The library and name strings provided in this macro will be used by SST to identify the tool as "library.name". The version and description are displayed 
-by `sst-info` to document the purpose and version of the profile tool. The profile_api parameter identifies which API this tool implements which controls which profiling points it can be loaded in to.
+by `sst-info` to document the version and purpose of the profile tool. The profile_api parameter identifies which API this tool implements which controls which profiling points it can be loaded in to.
 
 :::info Important
 This macro must reside in a `public` section of the tool's header file.
@@ -37,11 +37,11 @@ class CodeSegmentCounter: public SST::ComponentCodeSegmentProfileTool
 public:
 
     SST_ELI_REGISTER_PROFILETOOL(
-        CodeSegmentCounter,                     // Profiler class
+        CodeSegmentCounter,                     // ProfileTool class
         SST::ComponentCodeSegmentProfileTool,   // Profiler API
-        "simpleElementExample",                 // Profiler library (for Python/library lookup)
-        "example1",                             // Profiler name (for Python/library lookup)
-        SST_ELI_ELEMENT_VERSION(1,0,0),         // Version of the profiler (not related to SST version)
+        "simpleElementExample",                 /// Library name, the 'lib' in SST's lib.name format
+        "example1",                             /// Name used to refer to this tool, the 'name' in SST's lib.name format
+        SST_ELI_ELEMENT_VERSION(1,0,0),         // A version number
         "Example #2, statistics & RNG",         // Description
     )
 

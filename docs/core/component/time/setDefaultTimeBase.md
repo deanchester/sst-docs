@@ -3,7 +3,6 @@ title: setDefaultTimeBase
 ---
 
 ```cpp
-void setDefaultTimeBase(TimeConverter* base); // Deprecated in SST 15.0
 void setDefaultTimeBase(TimeConverter base);
 ```
 *Availability:* Component, SubComponent, ComponentExtension
@@ -19,7 +18,7 @@ Sets the calling (Sub)Component's default time base to the specified base.
 
 <!--- SOURCE_CODE: sst-elements/src/sst/elements/memHierarchy/standardInterface.cc --->
 ```cpp title="Excerpt from sst-elements/src/sst/elements/memHierarchy/standardInterface.cc"
-StandardInterface::StandardInterface(SST::ComponentId_t id, Params& params, TimeConverter* time,
+StandardInterface::StandardInterface(SST::ComponentId_t id, Params& params, TimeConverter time,
     HandlerBase* handler) : StandardMem(id, params, time, handler)
 {
     setDefaultTimeBase(time); // This subcomponent does not have its own timebase, use the parent's

@@ -36,9 +36,9 @@ public:
 
     //highlight-start
     SST_ELI_REGISTER_PYTHON_MODULE(
-        SST::Merlin::MerlinPyModule,    // Module class
-        "merlin",                       // Library name
-        SST_ELI_ELEMENT_VERSION(1,0,0)  // Module version
+        SST::Merlin::MerlinPyModule,    // Python Module class
+        "merlin",                       // Library name, the 'lib' in SST's lib.name format
+        SST_ELI_ELEMENT_VERSION(1,0,0)  // A version number
     )
     //highlight-end
 

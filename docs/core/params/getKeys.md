@@ -5,7 +5,7 @@ title: getKeys
 std::set<std::string getKeys>() const;
 ```
 
-Return the set of all keys (local and global) contained in the Params object.
+Return the set of all keys (local and shared) contained in the Params object.
 
 ## Parameters
 * **returns** (std::set\<std::string\>) A set of keys that belong to this object

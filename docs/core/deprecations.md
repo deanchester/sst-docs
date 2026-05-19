@@ -2,13 +2,17 @@
 title: Deprecation history
 ---
 
-See the below table for information on deprecations in current and past SSTCore releases. 
+See the below table for information on deprecations in current and past SST-Core releases. 
 
 | Item                                    | Deprecated | Removed          | Suggested alternative | Note   |
 | ---                                     | ---           | ---           | ---                   | -----  |
-| All BaseComponent functions that return a TimeConverter* | 15.0 | 16.0 | In SST 16.0, these functions will return a TimeConverter (no pointer). Construct a local TimeConverter from the returned TimeConverter* to avoid code breaks. | Applies to `getDefaultTimeBase`, `getTimeConverter`, `registerClock`, `registerTimeBase`, `reregisterClock`, `unregisterClock` |
+| `StatisticBase::statistic_type_name_`   | 15.1          | 17.0          | `StatisticBase::getStatisticTypeName()`| The StatisticBase class will no longer store type names. Statistic classes are required to implement `getStatisticTypeName()` instead. This change only affects custom statistic types. |
+| `StatisticBase::setStatisticTypeName()` | 15.1          | 17.0          | None | StatisticTypeNames will be constant for a given Statistic type and no longer be modifiable on a per-statistic basis. |
+| `Event::Handler2<Class, Func>`          | 16.0          | 17.0          | `Event::Handler<Class, Func>` | The temporary type `Handler2` is renamed to 'Handler' in SST 16.0. |
+| `Clock::Handler2<Class, Func>`          | 16.0          | 17.0          | `Clock::Handler<Class, Func>` | The temporary type `Handler2` is renamed to 'Handler' in SST 16.0. |
+| All BaseComponent functions that return a TimeConverter* | 15.0 | 16.0 | In SST 16.0, these functions return a TimeConverter (no pointer). Construct a local TimeConverter from the returned TimeConverter* to avoid code breaks. | Applies to `getDefaultTimeBase`, `getTimeConverter`, `registerClock`, `registerTimeBase`, `reregisterClock`, `unregisterClock` |
 | All BaseComponent functions that accept a TimeConverter* | 15.0 | 16.0 | Change the `TimeConverter*` to a `TimeConverter` | Applies to `configureLink`, `configureSelfLink`, `getCurrentSimTime`, `getNextClockCycle`, `setDefaultTimeBase`  |
-| All Link functions that return a TimeConverter*          | 15.0 | 16.0 | In SST 16.0, these functions will return a TimeConverter (no pointer). Construct a local TimeConverter from the returned TimeConverter* to avoid code breaks. | Applies to `getDefaultTimeBase` |
+| All Link functions that return a TimeConverter*          | 15.0 | 16.0 | In SST 16.0, these functions return a TimeConverter (no pointer). Construct a local TimeConverter from the returned TimeConverter* to avoid code breaks. | Applies to `getDefaultTimeBase` |
 | All Link functions that accept a TimeConverter*          | 15.0 | 16.0 | Change the `TimeConverter*` to a `TimeConverter` | Applies to `addRecvLatency`, `addSendLatency`, `setDefaultTimeBase`, `send` |
 | `Event::Handler<Class>`                 | 14.0          | 16.0          | `Event::Handler2<Class, Func>` | The new type `Handler2` will be renamed to 'Handler' in SST 16.0. |
 | `Clock::Handler<Class>`                 | 14.0          | 16.0          | `Clock::Handler2<Class, Func>` | The new type `Handler2` will be renamed to 'Handler' in SST 16.0. |

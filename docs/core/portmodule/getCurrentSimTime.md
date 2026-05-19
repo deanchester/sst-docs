@@ -3,7 +3,6 @@ title: getCurrentSimTime
 ---
 
 ```cpp
-SimTime_t getCurrentSimTime(TimeConverter* tc) const; // Deprecated in SST 15.0
 SimTime_t getCurrentSimTime(TimeConverter tc) const;
 SimTime_t getCurrentSimTIme(const std::string& base)const;
 ```

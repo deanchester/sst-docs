@@ -3,15 +3,7 @@ title: SST::TimeConverter
 ---
 
 :::warning Deprecation
-Shared TimeConverters returned by SST-Core APIs will be removed in SST 16.0. All functions accepting TimeConverter* now accept TimeConverter instead. Elements using a TimeConverter* returned by SST-Core should create a local non-shared instance as shown:
-```cpp
-// Old code
-TimeConverter* tc = function_that_returns_tc();
-// New code
-TimeConverter tc = function_that_returns_tc();
-```
-
-Functions that return a `TimeConverter*` will instead return a `TimeConverter` in SST 16.0.
+Shared TimeConverters returned by SST-Core APIs are removed in SST 16.0 after being deprecated in SST 15.0. All functions that previously accepted a pointer now accept an object. Functions that returned a pointer now return an object. Elements expecting TimeConverter pointers must be updated accordingly.
 :::
 
 
@@ -22,3 +14,5 @@ TimeConverters can be created by calling certain (Sub)Component functions. These
 * [registerTimeBase](../component/time/registerTimeBase)
 * [getDefaultTimeBase](../component/time/getDefaultTimeBase)
 * [getTimeConverter](../component/time/getTimeConverter)
+
+Components should use the above methods instead of directly constructing TimeConverters. These functions perform additional error checking such as ensuring that TimeConverters with smaller periods than the simulation's timebase are not used.

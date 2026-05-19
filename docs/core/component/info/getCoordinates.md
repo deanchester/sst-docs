@@ -7,7 +7,7 @@ const std::vector<double>& getCoordinates() const;
 ```
 *Availability:* Component, SubComponent, ComponentExtension
 
-Returns the X, Y, Z coordinates of the component. For a SubComponent or ComponentExtension, these are the coordinates of the parent Component. These are typically used for visualization.
+Returns the X, Y, Z coordinates of the component. For a SubComponent or ComponentExtension, these are the coordinates of the parent Component. These are typically used for visualization. Coordinates should be specified in the SST configuration input file if needed, otherwise they will default to `(0.0, 0.0, 0.0)`. SST does not assign coordinates.
 
 
 ## Parameters

@@ -12,13 +12,16 @@ $ sst-test-core
 ```
 
 ### Elements testing
-Similar to Core, elements test suites (whether part of the SST-Elements repository or part of a separate element library and registered with Core), can be run using the `sst-test-elements` utility. Both Core and at least one element library must be built and installed.
+Similar to Core, elements test suites (whether part of the SST-Elements repository or part of a separate element library and registered with Core), can be run using the `sst-test-elements` utility. Both Core and at least one element library must be built and installed. Due to run time, some Elements tests are only run during nightly tests and not for pull-request testing. To run these, use the `--categories` or equivalent `-m` option.
+
 
 ```sh
-$ sst-test-elements
+$ sst-test-elements                     # Run pull request tests
+$ sst-test-elements -m pr               # Run pull request tests
+$ sst-test-elements -m pr nightly       # Run nightly and pull request tests
 ```
 
-Unlike Core, the set of elements tests that are detected and run depends on which elements and dependencies have been installed and have registered their test suites with SST Core. Thus, replicating, for example, a particular SST job, requires installing the same set of SST Elements and dependencies as the job does.
+Unlike Core, the set of elements tests that are detected and run depends on which elements and dependencies have been installed and have registered their test suites with SST Core. Thus, replicating a particular SST job requires installing the same set of SST Elements and dependencies as the job does.
 
 ### Test framework output
 Running either command above produces a folder, by default named `sst_test_outputs`. This folder has three sub-folders as shown.
@@ -40,9 +43,11 @@ Running either utility with `-h` returns a detailed description of available opt
 | `-k`, `--keep_output`         | Do not overwrite the output directory, append to it instead | false |
 | `-c <N>`, `--concurrent <N>`  | Run the test suites (not the individual tests) on N concurrent threads | 1 |
 | `-l`, `--list_testsuites`     | List the discovered test suites instead of running them | false |
+| `-m`, `--categories {pr,nightly,weekly} [{pr,nightly,weekly}]` | Run tests belonging to the listed categories | pr |
 | `-r <N>`, `--ranks <N>`       | Run SST with N ranks in each test | 1 |
 | `-t <N>`, `--threads <N>`     | Run SST with N threads in each test | 1 |
-| `-w <STR>`                    | Wildcard STR of test suite names to run. Use quotes to avoid automatic wildcard expansion. For example, `-w "*merlin*"` | "" |
+| `-w <STR>`                    | Wildcard STR of test suite names to run. Use quotes to avoid automatic wildcard expansion. For example, `-w "*merlin*"` | "*" |
+| `-e <STR>`                    | Run only the test named STR | run all tests |
 
 
 ## Examples

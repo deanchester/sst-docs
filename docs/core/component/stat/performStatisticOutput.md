@@ -3,14 +3,14 @@ title: performStatisticOutput
 ---
 
 ```cpp
-void performStatisticOutput(Statistics::StatisticBase* stat);
+void performStatisticOutput(Statistics::StatisticBase* statistic);
 ```
 *Availability:* Component, SubComponent, ComponentExtension
 
 Trigger the output of a specific statistic. 
 
 ## Parameters
-* **statName** (StatisticBase*) Statistic to output
+* **statistic** (StatisticBase*) Statistic to output
 * **returns** None
 
 ## Example

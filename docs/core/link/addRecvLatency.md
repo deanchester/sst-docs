@@ -4,7 +4,6 @@ title: addRecvLatency
 
 ```cpp
 void addRecvLatency(int cycles, const std::string& timebase);
-void addRecvLatency(SimTime_t cycles, TimeConverter* timebase); // Deprecated in SST 15.0
 void addRecvLatency(SimTime_t cycles, TimeConverter timebase);
 ```
 
@@ -20,7 +19,7 @@ Set additional latency to be added to all events that come in on this link.
 
 ```cpp
 // Configure a link connected to a port named 'port' 
-SST::Link* link = configureLink("port", new Event::Handler2<example,&example::handleEvent>(this));
+SST::Link* link = configureLink("port", new Event::Handler<example,&example::handleEvent>(this));
 
 // Add 20ns of latency
 link->addRecvLatency(1, "20ns");

@@ -3,14 +3,14 @@ title: isStatisticShared
 ---
 
 ```cpp
-bool isStatisticShared(const std::string& statName, bool include_me = false);
+bool isStatisticShared(const std::string& statistic_name, bool include_me = false);
 ```
 *Availability:* Component, SubComponent, ComponentExtension
 
 Determine whether the named statistic is shared with our parent. Returns false if the caller is a Component and `include_me` is false.
 
 ## Parameters
-* **statName** (string) Name of the statistic
+* **statistic_name** (string) Name of the statistic
 * **include_me** (bool) Whether to count the calling component as a sharer
 * **returns** (bool) Whether statistic is shared
 

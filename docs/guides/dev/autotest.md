@@ -14,23 +14,28 @@ SST pull-request testing is integrated with GitHub such that once a pull request
 
 Nightly testing is also integrated with GitHub, and controls whether the devel branch is merged into the master branch. When all nightly jobs pass, the AutoTesting infrastructure merges the devel branches of all SST repositories (SST Core, Elements, Macro, Juno, ExternalElementExample, SQE) into their respective master branches.
 
-## SST-Core Pull Request Testing
-Pull requests on SST Core first go through a Clang-format check. This is run using GitHub Actions and runners. Once the request has both been reviewed and the format check passes, the request is automatically enqueued for testing. The results (PASS/FAIL) for each job are published to the pull request as comments. The following jobs are run on each Core pull request. If in doubt on the version of a particular library, use the version specified in the [SST Release Matrix](http://sst-simulator.org/SSTPages/SSTElementReleaseMatrix/) for the most recent release. For non-Core repositories, the `devel` branch is used.
+## Code formatting
+All pull requests are checked against a set of [pre-commit](https://pre-commit.com) hooks for formatting and will fail testing if they do not pass the format check. Developers should use pre-commit locally prior to committing to ensure branches adhere to the formatting requirements. The requirements are different for SST-Core and SST-Elements -- Core is more stringently format checked while Element formatting is largely up to individual library developers.
 
+You can run the `pre-commit` hooks manually or set them up to run automatically when you try to commit. For both methods, you will need to ensure `pre-commit` is installed. Run the hooks manually by running `pre-commit run --all` in the repository and then committing the updated files. To set up the hooks to run automatically when you commit, run `pre-commit install` from the top level directory of SST-Core or SST-Elements. This will re-format files as needed and you can then stage and commit the updated files.
+
+## SST-Core Pull Request Testing
+Once a pull request has both been reviewed and the format checks pass, the request is automatically enqueued for testing. The results (PASS/FAIL) for each job are published to the pull request as comments. The following jobs are run on each Core pull request. If in doubt on the version of a particular library, use the version specified in the [SST Release Matrix](http://sst-simulator.org/SSTPages/SSTElementReleaseMatrix/) for the most recent release. For non-Core repositories, the `devel` branch is used.
 
 | **OS**  | **Compiler** | **Python** | **OpenMPI** | **Other libraries** | **Run Variant** | **SST Repositories** | **Test Framework(s)** |
 |---------|----------|--------|---------|------------------|--------------------|------------------|-----------------|
-| Rocky 8 | -        | -      | -       | Clang-format v20 | Format             | Core         | sst-core/scripts/clang-format-test.sh |
 | Rocky 8 | GCC 8.5.0 | 3.9   | 4.1.4   | Pin 3.31         | Serial             | Core, Elements, Juno, ExternalElementExample | `sst-test-core -k`, `sst-test-elements -k` |
 | Rocky 8 | GCC 8.5.0 | 3.9   | 4.1.4   | Pin 3.31         | Threads = 2        | Core, Elements, Juno, ExternalElementExample | `sst-test-core -k -t 2`, `sst-test-elements -k -t 2` |
 | Rocky 8 | GCC 8.5.0 | 3.9   | 4.1.4   | Pin 3.31         | Ranks = 2          | Core, Elements, Juno, ExternalElementExample | `sst-test-core -k -r 2`, `sst-test-elements -k -r 2` |
 | Rocky 8 | GCC 8.5.0 | 3.9   | 4.1.4   | Pin 3.31         | Make dist          | Core, Elements, Juno, ExternalElementExample | `sst-test-core -k`, `sst-test-elements -k` |
-| OSX 14 | Xcode 14 | 3.10 | 4.1.4 | - | Serial | Core, Elements, Juno, ExternalElementExample | `sst-test-core -k`, `sst-test-elements -k` |
+| OSX 15 | Apple Clang 16 | 3.10 | 4.1.6 | - | Serial | Core, Elements, Juno, ExternalElementExample | `sst-test-core -k`, `sst-test-elements -k` |
 
 Note that the "make dist" job first configures and runs make dist on the repositories under test and then runs the test framework on the generated distributions.
 
+To run the pre-commit hooks locally, ensure you have pre-commit installed.
+
 ## SST-Elements Pull Request Testing
-Pull requests on SST Elements are not format checked, as formatting guidelines are left to individual library developers. Like Core, once Element pull requests have been reviewed, they are automatically tested. If the jobs pass, the pull request merges without further intervention. The AutoTester jobs are listed below.
+Like Core, once Element pull requests have been reviewed and pass format checks, they are automatically tested. If the jobs pass, the pull request merges without further intervention. The AutoTester jobs are listed below.
 
 | **OS**  | **Compiler** | **Python** | **OpenMPI** | **Other libraries**  | **Run Variant** | **SST Repositories** | **Test Framework(s)** |
 |---------|----------|--------|---------|------------------|--------------------|------------------|-----------------|
@@ -38,11 +43,12 @@ Pull requests on SST Elements are not format checked, as formatting guidelines a
 | Rocky 8 | GCC 8.5.0 | 3.9 | 4.1.4   | Pin 3.31         | Threads = 2        | Core, Elements, Juno, ExternalElementExample | `sst-test-core -k -t 2`, `sst-test-elements -t 2` |
 | Rocky 8 | GCC 8.5.0 | 3.9 | 4.1.4   | Pin 3.31         | Ranks = 2          | Core, Elements, Juno, ExternalElementExample | `sst-test-core -k -r 2`, `sst-test-elements -r 2` |
 | Rocky 8 | GCC 8.5.0 | 3.9 | 4.1.4   | Pin 3.31         | Make dist          | Core, Elements, Juno, ExternalElementExample | `sst-test-core -k`, `sst-test-elements` |
-| OSX 14 | Xcode 14 | 3.10 | 4.1.4 | - | Serial | Core, Elements, Juno, ExternalElementExample | `sst-test-core -k`, `sst-test-elements` |
+| OSX 15 | Apple Clang 16 | 3.10 | 4.1.6 | - | Serial | Core, Elements, Juno, ExternalElementExample | `sst-test-core -k`, `sst-test-elements` |
 
-See the SST-Core section above for a description of "make dist" testing.
+See the SST-Core section above for a description of "make dist" testing. 
 
 ## Local Testing and Other Notes
 The test environment can be replicated by replicating a build environment above, building and installing the listed Core and element libraries, and running the test frameworks as listed. See [SST Testing](testing) for more information about the SST test framework.
 
 Additionally, note that any tests or test suites added to the SST test framework in the branch under test will automatically run as part of the AutoTester. There are no additional steps needed to update testing.
+

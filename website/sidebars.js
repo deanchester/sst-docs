@@ -25,8 +25,9 @@ const sidebars = {
       label: 'Features',
       link: { type: 'generated-index' },
       items: ['guides/features/checkpoint'
-            , 'guides/features/signal'
-            , 'guides/features/debug']
+            , 'guides/features/debug'
+            , 'guides/features/profile'
+            , 'guides/features/signal']
     },
     {
       type: 'category',
@@ -43,6 +44,7 @@ const sidebars = {
         "guides/dev/devtutorial"
         , "guides/dev/naming"
         , "guides/dev/contrib"
+        , "guides/dev/devfaq"
         , "guides/dev/autotest"
         , "guides/dev/testing"
         , "guides/dev/testfaq"
@@ -72,9 +74,6 @@ const sidebars = {
           items: [
             "core/component/component/constructor"
             , "core/component/component/destructor"
-            , "core/component/component/primaryComponentDoNotEndSim"
-            , "core/component/component/primaryComponentOKToEndSim"
-            , "core/component/component/registerAsPrimaryComponent"
           ]
         },
         { 
@@ -107,6 +106,16 @@ const sidebars = {
             , "core/component/lifecycle/emergencyShutdown"
             , "core/component/lifecycle/printStatus"
           ] 
+        },
+        {
+          type: 'category',
+          label: "Simulation Control",
+          link: { type: 'generated-index' },
+          items: [
+              "core/component/control/registerAsPrimaryComponent"
+            , "core/component/control/primaryComponentDoNotEndSim"
+            , "core/component/control/primaryComponentOKToEndSim"
+          ]
         },
         { 
           type: 'category',
@@ -189,8 +198,7 @@ const sidebars = {
           items: [
             "core/component/stat/registerStatistic"
             , "core/component/stat/registerMultiStatistic"
-            , "core/component/stat/doesComponentInfoStatisticExist"
-            , "core/component/stat/getComponentInfoStatisticEnableLevel"
+            , "core/component/stat/getStatisticValidityAndLevel"
             , "core/component/stat/getStatisticLoadLevel"
             , "core/component/stat/isStatisticShared"
             , "core/component/stat/performGlobalStatisticOutput"
@@ -227,18 +235,23 @@ const sidebars = {
           label: 'Register',  
           link: { type: 'generated-index' },
           items: [
-            "core/eli/register/sst_eli_register_component"
+            "core/eli/register/sst_eli_register_alias"
+            , "core/eli/register/sst_eli_register_component"
             , "core/eli/register/sst_eli_register_component_base"
             , "core/eli/register/sst_eli_register_component_derived_base"
-            , "core/eli/register/sst_eli_register_subcomponent"
-            , "core/eli/register/sst_eli_register_subcomponent_api"
-            , "core/eli/register/sst_eli_register_subcomponent_derived_api"
+            , "core/eli/register/sst_eli_register_interactive_console"
             , "core/eli/register/sst_eli_register_module"
             , "core/eli/register/sst_eli_register_module_api"
             , "core/eli/register/sst_eli_register_module_derived_api"
+            , "core/eli/register/sst_eli_register_partitioner"
+            , "core/eli/register/sst_eli_register_portmodule"
             , "core/eli/register/sst_eli_register_profiletool"
             , "core/eli/register/sst_eli_register_python_module"
             , "core/eli/register/sst_eli_register_realtimeaction"
+            , "core/eli/register/sst_eli_register_subcomponent"
+            , "core/eli/register/sst_eli_register_subcomponent_api"
+            , "core/eli/register/sst_eli_register_subcomponent_derived_api"
+
           ]
         },
         {
@@ -528,7 +541,12 @@ const sidebars = {
             , "core/realtime/simulationSignalShutdown"
         ]
     },
-    'core/serialization/overview',
+    {
+      type: 'category',
+      label: 'Serialization',
+      link: { type: 'doc', id: 'core/serialization/overview' },
+      items: [ 'core/serialization/default' ]
+    },
     {
       type: 'category',
       label: 'Shared Objects',
@@ -590,6 +608,8 @@ const sidebars = {
         , "core/timeconverter/convertToCoreTime"
         , "core/timeconverter/getFactor"
         , "core/timeconverter/getPeriod"
+        , "core/timeconverter/isInitialized"
+        , "core/timeconverter/operator_bool"
       ]
     },
     {
@@ -803,6 +823,7 @@ const sidebars = {
       ]
     },
     "elements/cacheTracer/intro",
+    "elements/carcosa/intro",
     "elements/cassini/intro",
     "elements/cramsim/intro",
     /* Ember */

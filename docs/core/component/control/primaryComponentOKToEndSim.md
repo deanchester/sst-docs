@@ -4,9 +4,9 @@ title: primaryComponentOKToEndSim
 ```cpp
 void primaryComponentOKToEndSim();
 ```
-*Availability*: Component
+*Availability*: Component, SubComponent, ComponentExtension
 
-A primary component that has previous registered using [registerAsPrimaryComponent()](registerAsPrimaryComponent) calls this function to let the simulation know that it is currently OK to end simulation. Simulation will not end until all primary components have called this function.
+A primary component that has previously registered using [registerAsPrimaryComponent()](registerAsPrimaryComponent) calls this function to let the simulation know that it is currently OK to end simulation. When SST detects that all primary components are simultaneously in the ok-to-end state, simulation will end.
 
 To change status and prevent simulation end, use [primaryComponentDoNoEndSim()](primaryComponentDoNotEndSim).
 
@@ -81,5 +81,7 @@ void basicSimLifeCycle::handleEvent(SST::Event* ev) {
 
 ## Header
 ```cpp
-#include <sst/core/component.h>
+#include <sst/core/component.h> // or
+#include <sst/core/subcomponent.h> // or
+#include <sst/core/componentExtension.h>
 ```

@@ -6,7 +6,7 @@ void insert(const std::string& key ,const std::string& value, bool overwrite = t
 void insert(const Params& params);
 ```
 
-Insert a key/value pair or a set of parameters into this Params object. In the case of inserting a Params object, global parameters will be copied into the global params section of this Params object. All other inserted params will be inserted into the local params. The key/value variant of this function optionally takes a parameter to indicate whether the new key/value should overwrite an existing one if it already exists in the Params object. If `overwrite=False` and the parameter exists in the Params object already, this function will have no effect.
+Insert a key/value pair or a set of parameters into this Params object. In the case of inserting a Params object, shared parameters will be copied into the shared params section of this Params object. All other inserted params will be inserted into the local params. The key/value variant of this function optionally takes a parameter to indicate whether the new key/value should overwrite an existing one if it already exists in the Params object. If `overwrite=False` and the parameter exists in the Params object already, this function will have no effect.
 
 ## Parameters
 * **key** (std::string) New key to add to the Params

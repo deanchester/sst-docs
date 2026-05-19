@@ -10,7 +10,7 @@ The *simpleSimulation* library consists of two examples that model the throughpu
 **SST Name:** `simpleSimulation` &nbsp;  
 **Maturity Level:** Mature (3) &nbsp;  
 **Development Path:** Maintenance &nbsp;   
-**Last Released:** SST 15.1
+**Last Released:** SST 16.0
 :::
 
 ### Required dependencies

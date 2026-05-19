@@ -54,7 +54,7 @@ class MyComponent : public SST::ComponentIntermediateClass
 public:
 
     SST_ELI_REGISTER_COMPONENT(
-        MyComponent,                        // Component class
+        MyComponent,                        // Class name
         "exampleLibrary",                   // Component library (for Python/library lookup)
         "mycomponent",                      // Component name (for Python/library lookup)
         SST_ELI_ELEMENT_VERSION(1,0,0),     // Version of the component (not related to SST version)

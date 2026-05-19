@@ -5,7 +5,7 @@ title: operator=
 Params& operator=(const Params& old);
 ```
 
-Assignment operator. Copies a Params object, including any references to global parameter sets.
+Assignment operator. Copies a Params object, including any references to shared parameter sets.
 
 ## Parameters
 * **old** (Params) Parameters to copy
